@@ -1,0 +1,20 @@
+module ripple_carry_adder(s,cout,a,b,c);
+input [3:0]a,b,c;
+output [3:0]s;
+output cout;
+F_add fdd1(s[0],c[1],a[0],b[0],c[0]);
+F_add fdd2(s[1],c[2],a[1],b[1],c[1]);
+F_add fdd3(s[2],c[3],a[2],b[2],c[2]);
+F_add fdd4(s[3],cout,a[3],b[3],c[3]);
+endmodule
+
+module F_add(s,cout,a,b,c);
+input a,b,c;
+output s,cout;
+wire [2:0]d;
+xor(d[0],a,b);
+xor(s,d[0],c);
+and(d[1],a,b);
+and(d[2],c,d[0]);
+or(cout,d[1],d[2]);
+endmodule
